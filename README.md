@@ -3,7 +3,7 @@ A simple PHP library for building a mysql query easily with builder pattern. Eas
 ```php
 <?php
     include 'QueryBuilder.php';
-    $qb = QueryBuilder::new()
+    QueryBuilder::new()
         ->connect()
         ->prepare('SELECT username, password FROM users WHERE id < ?')
         ->param('i', 3)
