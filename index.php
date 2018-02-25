@@ -1,5 +1,3 @@
-### Example
-```php
 <?php
     include 'QueryBuilder.php';
     $qb = QueryBuilder::new()
@@ -11,4 +9,3 @@
     while ($qb->fetch()) {
         echo("$username -> $password <br>");
     }
-```
