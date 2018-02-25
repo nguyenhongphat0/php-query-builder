@@ -12,3 +12,14 @@
         echo("$username -> $password <br>");
     }
 ```
+Even more simple when the statement doesn't return anything
+
+```php
+<?php
+    include 'QueryBuilder.php';
+    QueryBuilder::new()
+        ->connect()
+        ->prepare('INSERT INTO users (username, password) VALUES (?, ?)')
+        ->param('ss', 'someone', '12345678')
+        ->go();
+```
