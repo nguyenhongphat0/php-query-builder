@@ -41,5 +41,6 @@ class QueryBuilder {
         while ($this->pre->fetch()) {
             $func(...$this->res);
         }
+        return $this;
     }
 }

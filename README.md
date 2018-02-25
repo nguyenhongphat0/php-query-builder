@@ -5,21 +5,20 @@
     $qb = QueryBuilder::new()
         ->connect()
         ->prepare('SELECT username, password FROM users WHERE id < ?')
-        ->param('i', '10')
+        ->param('i', 3)
         ->result($username, $password)
         ->go()
         ->doeach(function($username, $password) {
             echo("$username -> $password");
-        });
-```
-Even more simple when the statement doesn't return anything
-
-```php
-<?php
-    include 'QueryBuilder.php';
-    QueryBuilder::new()
-        ->connect()
+        })
         ->prepare('INSERT INTO users (username, password) VALUES (?, ?)')
         ->param('ss', 'someone', '12345678')
-        ->go();
+        ->go()
+        ->prepare('SELECT * FROM users WHERE username = ?')
+        ->param('s', 'someone')
+        ->result($id, $username, $password, $email, $fullname)
+        ->go()
+        ->doeach(function($id, $username, $password, $email, $fullname) {
+            echo("$id $username $password $email $fullname");
+        });
 ```
