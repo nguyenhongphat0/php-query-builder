@@ -3,7 +3,7 @@
 include 'config.php';
 
 class QueryBuilder {
-    public $con, $pre;
+    public $con, $pre, $res;
 
     public static function new() {
       return new QueryBuilder();
@@ -27,6 +27,7 @@ class QueryBuilder {
     public function result(&...$results)
     {
         $this->pre->bind_result(...$results);
+        $this->res = $results;
         return $this;
     }
 
@@ -36,8 +37,9 @@ class QueryBuilder {
         return $this;
     }
 
-    public function fetch()
-    {
-        return $this->pre->fetch();
+    public function doeach($func) {
+        while ($this->pre->fetch()) {
+            $func(...$this->res);
+        }
     }
 }

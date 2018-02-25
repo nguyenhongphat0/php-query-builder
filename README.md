@@ -7,10 +7,10 @@
         ->prepare('SELECT username, password FROM users WHERE id < ?')
         ->param('i', '10')
         ->result($username, $password)
-        ->go();
-    while ($qb->fetch()) {
-        echo("$username -> $password <br>");
-    }
+        ->go()
+        ->doeach(function($username, $password) {
+            echo("$username -> $password");
+        });
 ```
 Even more simple when the statement doesn't return anything
 
