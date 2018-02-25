@@ -1,3 +1,4 @@
+A simple PHP library for building a mysql query easily with builder pattern. Easy to use with just a PHP class.
 ### Example
 ```php
 <?php
