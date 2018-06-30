@@ -2,7 +2,7 @@
 include 'QueryBuilder.php';
 
 class Model {
-    public static $table_name = '';
+    public static $table = '';
     public static $columns = [];
     public $values = [];
     
@@ -12,31 +12,31 @@ class Model {
         }
 //         $this->values = $param;
     }
-    static function SelectStament() : string {
-        return "SELECT * FROM ".static::$table_name;
+    static function SelectStatement() : string {
+        return "SELECT * FROM ".static::$table;
     }
-    function InsertStament() : string {
-        return "INSERT INTO ".static::$table_name." (".implode(",", static::$columns).")"." VALUES (".implode(",", array_map(function($v) { return "'".$v."'"; }, $this->values)).")";
+    function InsertStatement() : string {
+        return "INSERT INTO ".static::$table." (".implode(",", static::$columns).")"." VALUES (".implode(",", array_map(function($v) { return "'".$v."'"; }, $this->values)).")";
     }
-    function UpdateStament() : string {
+    function UpdateStatement() : string {
         $params = [];
         foreach (static::$columns as $column) {
             $params[] = $column."='".$this->values[$column]."'";
         }
-        return "UPDATE ".static::$table_name." SET ".implode(",", $params)." WHERE ".static::$columns[0]."='".$this->values[static::$columns[0]]."'";
+        return "UPDATE ".static::$table." SET ".implode(",", $params)." WHERE ".static::$columns[0]."='".$this->values[static::$columns[0]]."'";
     }
-    function DeleteStament() : string {
-        return "DELETE FROM ".static::$table_name." WHERE ".static::$columns[0]."='".$this->values[static::$columns[0]]."'";
+    function DeleteStatement() : string {
+        return "DELETE FROM ".static::$table." WHERE ".static::$columns[0]."='".$this->values[static::$columns[0]]."'";
     }
-    function FindStament() : string {
-        return static::SelectStament()." WHERE ".static::$columns[0]."='".$this->values[static::$columns[0]]."'";
+    function FindStatement() : string {
+        return static::SelectStatement()." WHERE ".static::$columns[0]."='".$this->values[static::$columns[0]]."'";
     }
     
     static function all() {
         $list = [];
         QueryBuilder::new()
         ->connect()
-        ->query(static::SelectStament())
+        ->query(static::SelectStatement())
         ->assoc(function($res) use (&$list) {
             $list[] = $res;
         });
@@ -46,7 +46,7 @@ class Model {
     function find() {
         QueryBuilder::new()
         ->connect()
-        ->query($this->FindStament())
+        ->query($this->FindStatement())
         ->assoc(function($res) use (&$list) {
             $this->values = $res;
         });
@@ -56,7 +56,7 @@ class Model {
     function insert() {
         QueryBuilder::new()
         ->connect()
-        ->query($this->InsertStament())
+        ->query($this->InsertStatement())
         ->success($success);
         return $success;
     }
@@ -64,7 +64,7 @@ class Model {
     function update() {
         QueryBuilder::new()
         ->connect()
-        ->query($this->UpdateStament())
+        ->query($this->UpdateStatement())
         ->success($success);
         return $success;
     }
@@ -72,7 +72,7 @@ class Model {
     function delete() {
         QueryBuilder::new()
         ->connect()
-        ->query($this->DeleteStament())
+        ->query($this->DeleteStatement())
         ->success($success);
         return $success;
     }
