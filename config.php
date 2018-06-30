@@ -1,5 +1,5 @@
 <?php
     define('host', 'localhost');
-    define('database', 'test');
-    define('username', 'root');
-    define('password', '12345678');
+    define('database', 'database');
+    define('username', 'username');
+    define('password', 'password');

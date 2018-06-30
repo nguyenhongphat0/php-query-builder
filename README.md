@@ -22,4 +22,24 @@ A simple PHP library for building a mysql query easily with builder pattern. Eas
         ->doeach(function($id, $username, $password, $email, $fullname) {
             echo("$id $username $password $email $fullname");
         });
+        
+```
+```php_binary
+<?php
+    include 'Model.php';
+
+    class User extends Model
+    {
+        public static $table_name = "users";
+        public static $columns = ['id', 'username', 'password', 'email', 'is_admin'];
+        
+        function example {
+            $user = new User($_GET);
+            $user->find();
+            $user->insert();
+            $user->update();
+            $user->delete();
+            User::all();
+        }
+    }
 ```
