@@ -24,7 +24,7 @@ A simple PHP library for building a mysql query easily with builder pattern. Eas
         });
         
 ```
-```php_binary
+```php
 <?php
     include 'Model.php';
 
